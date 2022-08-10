@@ -1,2 +1,3 @@
-# PHP-Veritaban-na-kay-t-ekleme
+# PHP VERİTABANINA KAYIT EKLEME
 PHP veritabanına veri nasıl eklenir
+
