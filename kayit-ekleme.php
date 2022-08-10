@@ -1,62 +1,59 @@
 <?php
 
-//burada pdo ile veritabanına bağlantı sağlıyoruz.
 try
 {
-$db = new PDO("mysql:host=localhost;dbname=php;charset=utf8", "VERİTABANI KULLANICI ADI", "VERİTABANI ŞİFRESİ");
+ $db = new PDO("mysql:host=localhost;dbname=phpgit;charset=utf8", "root", "");
 
 }
-catch(PDOException $hata)
+catch(PDOException $e)
 {
-  echo $hata->getMessage();
+  echo $e->getMessage();
 }
 
 
-
-//kayıt ekleme işlemleri
 if($_POST)
 {
-//text inputundan gelen verileri post ediyorum.
-$isim = $_POST["isim"];
-$soyisim = $_POST["soyisim"];
-$email = $_POST["email"];
-$sifre = md5($_POST["sifre"]);
-$cinsiyet = $_POST["cinsiyet"];
-$kayit_tarihi = date("Y-m-D");
+  $cinsiyet = $_POST["cinsiyet"];
+  $isim = $_POST["isim"];
+  $soyisim = $_POST["soyisim"];
+  $email = $_POST["email"];
+  $sifre = md5($_POST["sifre"]);
+  $kayit_tarihi = date("d-m-Y");
 
-if($isim != "" && $soyisim !="" && $email != "" && $sifre != "" && $cinsiyet != "") //burada boş alan var mı onu kontrol ediyorum.
-{
-
-  $sorgu = $db->prepare("insert into user set isim = ?, soyisim = ?, email = ?, sifre= ?, cinsiyet= ?, kayit_tarihi= ?");
-  $insert = $sorgu->execute(array($isim, $soyisim, $email, $sifre, $cinsiyet, $kayit_tarihi));
-  
-  if($insert) //veriler başarılı bir şekilde eklendi mi onu kontrol ediyorum.
+  if($isim !== "" && $soyisim !== "" && $email !=="" && $cinsiyet !== "" && $sifre!=="")
   {
-  echo "Kayıt başarılı";
+    $sorgu = $db->prepare("insert into user set isim= ?, soyisim=?, email=?, sifre=?, cinsiyet=?, kayit_tarihi=?");
+    $ekle = $sorgu->execute(array($isim, $soyisim, $email, $sifre, $cinsiyet, $kayit_tarihi));
+  
+    if($ekle)
+    {
+      echo "Kayıt eklendi :)";
+    }
+    else
+    {
+      echo "Kayıt eklenemedi :(";
+    }
   }
   else
   {
-  echo "Kayıt başarısız";
+    echo "Lütfen tüm alanları doldurunuz.";
   }
 
-}
-else
-  {
-    echo "Lütfen tüm alanları doldurun.";
-  }
-  
 }
 
 ?>
 
 <form action="" method="post">
 
-<input type="text" name="isim" placeholder="İsim"> <br/>
-<input type="text" name="soyisim" placeholder="Soyisim"> <br/>
-<input type="text" name="email" placeholder="Email"> <br/>
-<input type="text" name="sifre" placeholder="Şifre"> <br/>
-<input type="text" name="cinsiyet" placeholder="Cinsiyet"> <br/><br/>
+<input type="text" name="isim" placeholder="İsim"><br>
+<input type="text" name="soyisim" placeholder="Soyisim"><br>
+<input type="text" name="email" placeholder="E-mail"><br>
+<input type="text" name="sifre" placeholder="Şifre"><br>
+<select name="cinsiyet" >
+<option value="Erkek">Erkek</option>
+<option value="Kız">Kız</option>
+</select><br><br>
 
-<input type="submit" value="Oluştur">
+<input type="submit" value="Kayıt Ekle">
 
 </form>
