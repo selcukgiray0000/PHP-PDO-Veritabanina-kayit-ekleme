@@ -16,13 +16,13 @@ if($_POST)
   $isim = $_POST["isim"];
   $soyisim = $_POST["soyisim"];
   $email = $_POST["email"];
-  $sifre = md5($_POST["sifre"]);
+  $sifre = $_POST["sifre"];
   $kayit_tarihi = date("d-m-Y");
 
   if($isim !== "" && $soyisim !== "" && $email !=="" && $cinsiyet !== "" && $sifre!=="")
   {
     $sorgu = $db->prepare("insert into user set isim= ?, soyisim=?, email=?, sifre=?, cinsiyet=?, kayit_tarihi=?");
-    $ekle = $sorgu->execute(array($isim, $soyisim, $email, $sifre, $cinsiyet, $kayit_tarihi));
+    $ekle = $sorgu->execute(array($isim, $soyisim, $email, md5($sifre), $cinsiyet, $kayit_tarihi));
   
     if($ekle)
     {
