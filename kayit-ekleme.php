@@ -3,7 +3,7 @@
 //burada pdo ile veritabanına bağlantı sağlıyoruz.
 try
 {
-$db = new PDO("mysql:host=localhost;dbname=php;charset=utf8", "root", "");
+$db = new PDO("mysql:host=localhost;dbname=php;charset=utf8", "VERİTABANI KULLANICI ADI", "VERİTABANI ŞİFRESİ");
 
 }
 catch(PDOException $hata)
