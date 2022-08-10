@@ -3,7 +3,6 @@
 try
 {
  $db = new PDO("mysql:host=localhost;dbname=phpgit;charset=utf8", "root", "");
-
 }
 catch(PDOException $e)
 {
