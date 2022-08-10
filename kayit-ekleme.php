@@ -1,5 +1,19 @@
 <?php
 
+//burada pdo ile veritabanına bağlantı sağlıyoruz.
+try
+{
+$db = new PDO("mysql:host=localhost;dbname=php;charset=utf8", "root", "");
+
+}
+catch(PDOException $hata)
+{
+  echo $hata->getMessage();
+}
+
+
+
+//kayıt ekleme işlemleri
 if($_POST)
 {
 //text inputundan gelen verileri post ediyorum.
